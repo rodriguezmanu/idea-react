@@ -96,6 +96,10 @@
     "eslint-plugin-react": "^7.10.0",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.1.0",
+    "stylelint": "^9.4.0",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-formatter-pretty": "^1.0.3",
+    "stylelint-webpack-plugin": "^0.10.5",
     "webpack": "^3.8.1"
   }
 }
