@@ -8,9 +8,9 @@ const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeM
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const stylelintFormatter = require('stylelint-formatter-pretty');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
-const stylelintFormatter = require('stylelint-formatter-pretty');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
@@ -206,6 +206,10 @@ module.exports = {
                 loader: require.resolve('sass-loader'),
               },
               {
+                loader: 'sass-resources-loader',
+                options: { resources: './src/scss/**/*.scss' },
+              },
+              {
                 loader: require.resolve('postcss-loader'),
                 options: {
                   // Necessary for external CSS imports to work
@@ -284,9 +288,9 @@ module.exports = {
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new StyleLintPlugin({
-        emitErrors: false,
-        formatter: stylelintFormatter
-      }),
+      emitErrors: false,
+      formatter: stylelintFormatter,
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
