@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.scss';
-import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import {
+  AppBar,
+  Avatar,
+  Toolbar,
+  Typography,
+  Button,
+} from '@material-ui/core/';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import {
   BrowserRouter as Router,
@@ -22,33 +24,36 @@ const App = () => {
 
   return (
     <Router>
-      <div className="p-2">
-        <AppBar position="static">
-          <Toolbar className="d-flex justify-content-between">
-            <div className="d-flex">
-              <Avatar>
-                <HighlightIcon />
-              </Avatar>
-              <Typography variant="title" color="inherit" className="pl-2 align-self-center">
+      <div className="main-container d-flex flex-column p-2">
+        <div className="header-container">
+          <AppBar position="static">
+            <Toolbar className="d-flex justify-content-between">
+              <div className="d-flex">
+                <Avatar>
+                  <HighlightIcon />
+                </Avatar>
+                <Typography variant="title" color="inherit" className="pl-2 align-self-center">
               Idea App
-              </Typography>
-            </div>
-            <div>
-              <Button color="inherit" component={loginLink}>
+                </Typography>
+              </div>
+              <div>
+                <Button color="inherit" component={loginLink}>
                 Login
-              </Button>
-              <Button color="inherit" component={registrationLink}>
+                </Button>
+                <Button color="inherit" component={registrationLink}>
                 Registration
-              </Button>
-            </div>
-          </Toolbar>
-        </AppBar>
-
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route path="/registration" component={Registration} />
-          <Redirect to="/login" />
-        </Switch>
+                </Button>
+              </div>
+            </Toolbar>
+          </AppBar>
+        </div>
+        <div className="page-container d-flex align-items-center justify-content-center h-100">
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route path="/registration" component={Registration} />
+            <Redirect to="/login" />
+          </Switch>
+        </div>
       </div>
     </Router>
   );

@@ -1,8 +1,14 @@
-a {
-  &.active {
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-  &:hover {
-    color: $white;
+.main-container {
+  height: 100vh;
+}
+
+.header-container {
+  a {
+    &.active {
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+    &:hover {
+      color: $white;
+    }
   }
 }
