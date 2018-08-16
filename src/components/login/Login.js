@@ -6,7 +6,6 @@ import {
   Typography,
   IconButton,
   InputAdornment,
-  TextField,
   Card,
   CardActions,
   CardContent,
@@ -14,6 +13,7 @@ import {
 } from '@material-ui/core/';
 import './Login.scss';
 import { Link } from 'react-router-dom';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
 export default class Login extends React.PureComponent {
   state = {
@@ -21,6 +21,16 @@ export default class Login extends React.PureComponent {
     password: '',
     showPassword: false,
   };
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit = () => {
+    console.log('submit');
+  }
+
 
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
@@ -31,74 +41,78 @@ export default class Login extends React.PureComponent {
 
     return (
       <div className="login-component">
-        <Card className="card-component">
-          <CardContent>
-            <Typography gutterBottom variant="headline" component="h2">
+        <ValidatorForm
+          onSubmit={this.handleSubmit}
+        >
+          <Card className="card-component">
+            <CardContent>
+              <Typography gutterBottom variant="headline" component="h2">
              Login
-            </Typography>
-            <div>
-              <TextField
-                fullWidth
-                required
-                id="email"
-                label="Email"
-                margin="dense"
-                name="email"
-                value={email}
-                autoComplete="email"
-                className="p-2"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <AccountCircle />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
+              </Typography>
               <div>
-                <TextField
-                  fullWidth
-                  label="Password"
-                  id="password"
+                <TextValidator
+                  label="Email"
                   margin="dense"
-                  required
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  name="password"
-                  autoComplete="password"
-                  className="p-2"
+                  fullWidth
+                  name="email"
+                  autoComplete="username"
+                  onChange={this.handleChange}
+                  value={email}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Security />
-                      </InputAdornment>),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="Toggle password visibility"
-                          onClick={this.handleClickShowPassword}
-                          onMouseDown={this.handleMouseDownPassword}
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>),
+                        <AccountCircle />
+                      </InputAdornment>
+                    ),
                   }}
+                  validators={['required', 'isEmail']}
+                  errorMessages={['This field is required.', 'Email is not valid']}
                 />
+
+                <div>
+                  <TextValidator
+                    fullWidth
+                    label="Password"
+                    margin="dense"
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    name="password"
+                    onChange={this.handleChange}
+                    autoComplete="current-password"
+                    validators={['required']}
+                    errorMessages={['This field is required.']}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Security />
+                        </InputAdornment>),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="Toggle password visibility"
+                            onClick={this.handleClickShowPassword}
+                            onMouseDown={this.handleMouseDownPassword}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>),
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          </CardContent>
-          <CardActions>
-            <Button variant="contained" color="primary">
+            </CardContent>
+            <CardActions>
+              <Button variant="contained" color="primary" type="submit">
               Login
-            </Button>
-            <div className="registration-container">
-              <span>
+              </Button>
+              <div className="registration-container">
+                <span>
                 Do not have an account, Go to <Link to="/registration">Registration</Link>
-              </span>
-            </div>
-          </CardActions>
-        </Card>
+                </span>
+              </div>
+            </CardActions>
+          </Card>
+        </ValidatorForm>
       </div>
     );
   }
