@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-  Visibility, VisibilityOff, AccountCircle, Security,
+  Visibility,
+  VisibilityOff,
+  AccountCircle,
+  Security,
 } from '@material-ui/icons/';
 import {
   Typography,
@@ -12,10 +15,13 @@ import {
   Button,
 } from '@material-ui/core/';
 import './Login.scss';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/user.actions';
 
-export default class Login extends React.PureComponent {
+class Login extends React.PureComponent {
   state = {
     email: '',
     password: '',
@@ -27,8 +33,11 @@ export default class Login extends React.PureComponent {
     this.setState({ [name]: value });
   }
 
-  handleSubmit = () => {
-    console.log('submit');
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { email: { value: email }, password: { value: password } } = e.target;
+    const { login } = this.props;
+    login(email, password);
   }
 
 
@@ -38,6 +47,7 @@ export default class Login extends React.PureComponent {
 
   render() {
     const { showPassword, password, email } = this.state;
+    const { user } = this.props;
 
     return (
       <div className="login-component">
@@ -47,7 +57,7 @@ export default class Login extends React.PureComponent {
           <Card className="card-component">
             <CardContent>
               <Typography gutterBottom variant="headline" component="h2">
-             Login
+                Login
               </Typography>
               <div>
                 <TextValidator
@@ -113,7 +123,16 @@ export default class Login extends React.PureComponent {
             </CardActions>
           </Card>
         </ValidatorForm>
+        {user.jwt && <Redirect to="/registration" />}
       </div>
     );
   }
 }
+
+Login.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  login: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({ user: state.user });
+export default connect(mapStateToProps, { login })(Login);
