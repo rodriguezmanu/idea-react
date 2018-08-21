@@ -1,9 +1,15 @@
+import { push } from 'react-router-redux';
 import {
-  LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE,
+  LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE,
 } from '../constants/actionTypes';
 
-const user = (state = {}, action) => {
+const user = (state = { isFetching: false }, action) => {
   switch (action.type) {
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
     case LOGIN_SUCCESS:
       try {
         const serializedState = JSON.stringify(action.data);
@@ -11,9 +17,14 @@ const user = (state = {}, action) => {
       } catch (err) {
         console.warn(err);
       }
-      return action.data;
+      return {
+        ...state,
+        ...action.data,
+      };
     case LOGIN_FAILURE:
-      return {};
+      return {
+        ...state,
+      };
     case LOGOUT_SUCCESS:
       try {
         localStorage.removeItem('tokens');

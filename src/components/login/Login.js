@@ -12,7 +12,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  Button,
 } from '@material-ui/core/';
 import './Login.scss';
 import { Link, Redirect } from 'react-router-dom';
@@ -20,6 +19,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/user.actions';
+import SubmitButton from '../submitButton/SubmitButton';
 
 class Login extends React.PureComponent {
   state = {
@@ -33,6 +33,9 @@ class Login extends React.PureComponent {
     this.setState({ [name]: value });
   }
 
+  /**
+   * Submit handler
+   */
   handleSubmit = (e) => {
     e.preventDefault();
     const { email: { value: email }, password: { value: password } } = e.target;
@@ -40,7 +43,9 @@ class Login extends React.PureComponent {
     login(email, password);
   }
 
-
+  /**
+   * Toggle showPassword
+   */
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
@@ -112,9 +117,7 @@ class Login extends React.PureComponent {
               </div>
             </CardContent>
             <CardActions>
-              <Button variant="contained" color="primary" type="submit">
-              Login
-              </Button>
+              <SubmitButton label="Login" isFetching={user.isFetching} />
               <div className="registration-container">
                 <span>
                 Do not have an account, Go to <Link to="/registration">Registration</Link>

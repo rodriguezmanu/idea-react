@@ -26,6 +26,10 @@ const App = ({ logout, user }) => {
   const registrationLink = props => <NavLink to="/registration" activeClassName="active" {...props} />;
   const loginLink = props => <NavLink to="/login" activeClassName="active" {...props} />;
 
+  const logoutHandler = () => {
+    logout(user.refresh_token);
+  };
+
   return (
     <Router>
       <div className="main-container d-flex flex-column p-2">
@@ -47,7 +51,7 @@ const App = ({ logout, user }) => {
                 <Button color="inherit" component={registrationLink}>
                   Registration
                 </Button>
-                <Button color="inherit" onClick={() => { logout(user.refresh_token); }}>
+                <Button color="inherit" onClick={logoutHandler}>
                   Logout
                 </Button>
               </div>
