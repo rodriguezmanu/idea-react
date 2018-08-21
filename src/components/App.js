@@ -15,10 +15,14 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Login from './login/Login';
 import Registration from './registration/Registration';
+import { logout } from '../actions/user.actions';
 
-const App = () => {
+
+const App = ({ logout, user }) => {
   const registrationLink = props => <NavLink to="/registration" activeClassName="active" {...props} />;
   const loginLink = props => <NavLink to="/login" activeClassName="active" {...props} />;
 
@@ -38,10 +42,13 @@ const App = () => {
               </div>
               <div>
                 <Button color="inherit" component={loginLink}>
-                Login
+                  Login
                 </Button>
                 <Button color="inherit" component={registrationLink}>
-                Registration
+                  Registration
+                </Button>
+                <Button color="inherit" onClick={() => { logout(user.refresh_token); }}>
+                  Logout
                 </Button>
               </div>
             </Toolbar>
@@ -59,4 +66,10 @@ const App = () => {
   );
 };
 
-export default App;
+App.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+  logout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({ user: state.user });
+export default connect(mapStateToProps, { logout })(App);
