@@ -54,6 +54,10 @@ class Login extends React.PureComponent {
     const { showPassword, password, email } = this.state;
     const { user } = this.props;
 
+    if (user.isAuth) {
+      return <Redirect to="/ideas" />;
+    }
+
     return (
       <div className="login-component">
         <ValidatorForm
@@ -126,7 +130,6 @@ class Login extends React.PureComponent {
             </CardActions>
           </Card>
         </ValidatorForm>
-        {user.jwt && <Redirect to="/registration" />}
       </div>
     );
   }

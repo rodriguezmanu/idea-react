@@ -19,12 +19,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Login from './login/Login';
 import Registration from './registration/Registration';
+import Ideas from './ideas/Ideas';
+import PrivateRoute from './privateRoute/PrivateRoute';
 import { logout } from '../actions/user.actions';
 
-
 const App = ({ logout, user }) => {
-  const registrationLink = props => <NavLink to="/registration" activeClassName="active" {...props} />;
   const loginLink = props => <NavLink to="/login" activeClassName="active" {...props} />;
+  const ideasLink = props => <NavLink to="/ideas" activeClassName="active" {...props} />;
+
 
   const logoutHandler = () => {
     logout(user.refresh_token);
@@ -41,19 +43,25 @@ const App = ({ logout, user }) => {
                   <HighlightIcon />
                 </Avatar>
                 <Typography variant="title" color="inherit" className="pl-2 align-self-center">
-              Idea App
+                  Idea App
                 </Typography>
               </div>
               <div>
+                {!user.isAuth && (
                 <Button color="inherit" component={loginLink}>
                   Login
                 </Button>
-                <Button color="inherit" component={registrationLink}>
-                  Registration
-                </Button>
-                <Button color="inherit" onClick={logoutHandler}>
-                  Logout
-                </Button>
+                )}
+                {user.isAuth && (
+                  <div>
+                    <Button color="inherit" component={ideasLink}>
+                      Ideas
+                    </Button>
+                    <Button color="inherit" onClick={logoutHandler}>
+                      Logout
+                    </Button>
+                  </div>
+                )}
               </div>
             </Toolbar>
           </AppBar>
@@ -62,6 +70,7 @@ const App = ({ logout, user }) => {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
+            <PrivateRoute exact path="/ideas" component={Ideas} />
             <Redirect to="/login" />
           </Switch>
         </div>

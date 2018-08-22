@@ -20,9 +20,12 @@ const user = (state = { isFetching: false }, action) => {
       return {
         ...state,
         ...action.data,
+        isAuth: true,
+        isFetching: false,
       };
     case LOGIN_FAILURE:
       return {
+        isAuth: false,
         ...state,
       };
     case LOGOUT_SUCCESS:
