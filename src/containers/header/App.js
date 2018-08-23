@@ -18,11 +18,11 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingOverlay from 'react-loading-overlay';
-import Login from './login/Login';
-import Registration from './registration/Registration';
-import Ideas from './ideas/Ideas';
-import PrivateRoute from './privateRoute/PrivateRoute';
-import { logout, me } from '../actions/user.actions';
+import Login from '../login/Login';
+import Registration from '../../components/registration/Registration';
+import Ideas from '../../components/ideas/Ideas';
+import PrivateRoute from '../privateRoute/PrivateRoute';
+import { logout, me } from '../../actions/user.actions';
 
 
 class App extends React.PureComponent {

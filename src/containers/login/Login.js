@@ -19,7 +19,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/user.actions';
-import SubmitButton from '../submitButton/SubmitButton';
+import SubmitButton from '../../components/submitButton/SubmitButton';
 
 class Login extends React.PureComponent {
   state = {
