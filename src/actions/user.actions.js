@@ -8,9 +8,12 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
+  ME_REQUEST,
+  ME_SUCCESS,
+  ME_FAILURE,
 } from '../constants/actionTypes';
 import { API } from '../constants/endpoints';
-import { post, remove } from '../helpers/api';
+import { post, remove, get } from '../helpers/api';
 
 /**
  * Signup API handler
@@ -56,6 +59,21 @@ export const logout = token => (dispatch) => {
     body: { refresh_token: token },
     success: LOGOUT_SUCCESS,
     failure: LOGOUT_FAILURE,
+    dispatch,
+  });
+};
+
+/**
+ * Login API handler
+ * @param {String} email
+ * @param {String} password
+ */
+export const me = () => (dispatch) => {
+  dispatch({ type: ME_REQUEST });
+  get({
+    url: API.URL + API.USERS.ME,
+    success: ME_SUCCESS,
+    failure: ME_FAILURE,
     dispatch,
   });
 };

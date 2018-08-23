@@ -35,12 +35,19 @@ export const post = async ({
       headers: getHeaders(success),
       body: JSON.stringify(body),
     });
+
     const data = await res.json();
-    dispatch({ type: success, data });
+
+    if (res.ok) {
+      dispatch({ type: success, data });
+    } else {
+      dispatch({ type: failure });
+    }
   } catch (e) {
     dispatch({ type: failure });
   }
 };
+
 
 /**
  * Delete from API
@@ -60,9 +67,41 @@ export const remove = async ({
       headers: getHeaders(success),
       body: JSON.stringify(body),
     });
-    const data = await res;
+    if (res.ok) {
+      dispatch({ type: success });
+    } else {
+      dispatch({ type: failure });
+    }
+  } catch (e) {
+    dispatch({ type: failure });
+  }
+};
 
-    dispatch({ type: success, data });
+/**
+ * GET from API
+ *
+ * @param {String} url
+ * @param {Object} body
+ * @param {String} success
+ * @param {String} failure
+ * @param {Object} dispatch
+ */
+export const get = async ({
+  url, success, failure, dispatch,
+}) => {
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: getHeaders(success),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      dispatch({ type: success, data });
+    } else {
+      dispatch({ type: failure });
+    }
   } catch (e) {
     dispatch({ type: failure });
   }

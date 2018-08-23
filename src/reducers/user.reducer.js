@@ -1,6 +1,12 @@
-import { push } from 'react-router-redux';
 import {
-  LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE, LOGOUT_SUCCESS, LOGOUT_FAILURE,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+  ME_REQUEST,
+  ME_SUCCESS,
+  ME_FAILURE,
 } from '../constants/actionTypes';
 
 const user = (state = { isFetching: false }, action) => {
@@ -25,8 +31,9 @@ const user = (state = { isFetching: false }, action) => {
       };
     case LOGIN_FAILURE:
       return {
-        isAuth: false,
         ...state,
+        isAuth: false,
+        isFetching: false,
       };
     case LOGOUT_SUCCESS:
       try {
@@ -34,9 +41,36 @@ const user = (state = { isFetching: false }, action) => {
       } catch (err) {
         console.warn(err);
       }
-      return undefined;
-    case LOGOUT_FAILURE:
       return {};
+    case LOGOUT_FAILURE:
+      return {
+        ...state,
+        isAuth: false,
+        isFetching: false,
+      };
+
+    case ME_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case ME_SUCCESS:
+      return {
+        ...state,
+        isAuth: true,
+        isFetching: false,
+      };
+    case ME_FAILURE:
+      try {
+        localStorage.removeItem('tokens');
+      } catch (err) {
+        console.warn(err);
+      }
+      return {
+        ...state,
+        isAuth: false,
+        isFetching: false,
+      };
     default:
       return state;
   }
