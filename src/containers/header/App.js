@@ -24,7 +24,6 @@ import Ideas from '../../components/ideas/Ideas';
 import PrivateRoute from '../privateRoute/PrivateRoute';
 import { logout, me } from '../../actions/user.actions';
 
-
 class App extends React.PureComponent {
   componentDidMount = () => {
     const token = localStorage.getItem('tokens');
@@ -82,13 +81,19 @@ class App extends React.PureComponent {
                       </div>
                     )}
                     {user.isAuth && (
-                    <div>
-                      <Button color="inherit" component={ideasLink}>
-                        Ideas
-                      </Button>
-                      <Button color="inherit" onClick={this.logoutHandler}>
-                        Logout
-                      </Button>
+                    <div className="d-flex align-items-center">
+                      <span className="d-flex  align-items-center mr-2">
+                        <Avatar alt="avatar" src={user.avatar_url} />
+                        <h6 className="ml-2">{user.name}</h6>
+                      </span>
+                      <div className="d-flex">
+                        <Button color="inherit" component={ideasLink}>
+                          Ideas
+                        </Button>
+                        <Button color="inherit" onClick={this.logoutHandler}>
+                          Logout
+                        </Button>
+                      </div>
                     </div>
                     )}
                   </div>

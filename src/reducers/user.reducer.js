@@ -75,6 +75,7 @@ const user = (state = { isFetching: false }, action) => {
     case ME_SUCCESS:
       return {
         ...state,
+        ...action.data,
         isAuth: true,
         isFetching: false,
       };

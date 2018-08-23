@@ -27,13 +27,13 @@ class FormAuth extends React.PureComponent {
     showPassword: false,
   };
 
-  componentDidMount() {
-    this.state = {
+  componentWillUnmount() {
+    this.setState({
       name: '',
       email: '',
       password: '',
       showPassword: false,
-    };
+    });
   }
 
   /**
@@ -73,24 +73,26 @@ class FormAuth extends React.PureComponent {
                 {
                   type === 'registration'
                   && (
-                  <TextValidator
-                    label="Name"
-                    margin="dense"
-                    fullWidth
-                    name="name"
-                    type="text"
-                    onChange={this.handleChange}
-                    value={name}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <AccountCircle />
-                        </InputAdornment>
-                      ),
-                    }}
-                    validators={['required']}
-                    errorMessages={['This field is required.']}
-                  />
+                  <div>
+                    <TextValidator
+                      label="Name"
+                      margin="dense"
+                      fullWidth
+                      name="name"
+                      type="text"
+                      onChange={this.handleChange}
+                      value={name}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircle />
+                          </InputAdornment>
+                        ),
+                      }}
+                      validators={['required']}
+                      errorMessages={['This field is required.']}
+                    />
+                  </div>
                   )
                 }
 

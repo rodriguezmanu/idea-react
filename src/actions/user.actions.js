@@ -45,6 +45,7 @@ export const login = (email, password) => (dispatch) => {
     success: LOGIN_SUCCESS,
     failure: LOGIN_FAILURE,
     dispatch,
+    isMe: true,
   });
 };
 

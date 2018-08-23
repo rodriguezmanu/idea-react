@@ -1,3 +1,5 @@
+import { me } from '../actions/user.actions';
+
 /**
  * Get headers
  * @param {String} action
@@ -25,9 +27,10 @@ const getHeaders = (action) => {
  * @param {String} success
  * @param {String} failure
  * @param {Object} dispatch
+ * @param {Boolean} isMe
  */
 export const post = async ({
-  url, body, success, failure, dispatch,
+  url, body, success, failure, dispatch, isMe = false,
 }) => {
   try {
     const res = await fetch(url, {
@@ -40,6 +43,9 @@ export const post = async ({
 
     if (res.ok) {
       dispatch({ type: success, data });
+      if (isMe) {
+        dispatch(me());
+      }
     } else {
       dispatch({ type: failure });
     }
