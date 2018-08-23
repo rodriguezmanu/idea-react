@@ -66,9 +66,7 @@ export const logout = token => (dispatch) => {
 };
 
 /**
- * Login API handler
- * @param {String} email
- * @param {String} password
+ * ME API handler
  */
 export const me = () => (dispatch) => {
   dispatch({ type: ME_REQUEST });

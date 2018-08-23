@@ -13,3 +13,7 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const ME_REQUEST = 'ME_REQUEST';
 export const ME_SUCCESS = 'ME_SUCCESS';
 export const ME_FAILURE = 'ME_FAILURE';
+
+export const IDEAS_REQUEST = 'IDEAS_REQUEST';
+export const IDEAS_SUCCESS = 'IDEAS_SUCCESS';
+export const IDEAS_FAILURE = 'ME_FAILURE';
