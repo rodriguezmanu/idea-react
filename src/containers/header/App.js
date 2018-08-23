@@ -19,7 +19,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingOverlay from 'react-loading-overlay';
 import Login from '../login/Login';
-import Registration from '../../components/registration/Registration';
+import Registration from '../registration/Registration';
 import Ideas from '../../components/ideas/Ideas';
 import PrivateRoute from '../privateRoute/PrivateRoute';
 import { logout, me } from '../../actions/user.actions';
@@ -46,6 +46,7 @@ class App extends React.PureComponent {
   render() {
     const { user } = this.props;
     const loginLink = props => <NavLink to="/login" activeClassName="active" {...props} />;
+    const registrationLink = props => <NavLink to="/registration" activeClassName="active" {...props} />;
     const ideasLink = props => <NavLink to="/ideas" activeClassName="active" {...props} />;
 
     return (
@@ -71,9 +72,14 @@ class App extends React.PureComponent {
                   </div>
                   <div>
                     {!user.isAuth && (
-                    <Button color="inherit" component={loginLink}>
-                      Login
-                    </Button>
+                      <div>
+                        <Button color="inherit" component={loginLink}>
+                          Login
+                        </Button>
+                        <Button color="inherit" component={registrationLink}>
+                          Registration
+                        </Button>
+                      </div>
                     )}
                     {user.isAuth && (
                     <div>

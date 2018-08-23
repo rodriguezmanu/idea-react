@@ -2,18 +2,18 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/user.actions';
+import { signup } from '../../actions/user.actions';
 import FormAuth from '../../components/formAuth/FormAuth';
 
-class Login extends React.PureComponent {
+class Registration extends React.PureComponent {
   /**
    * Submit handler
    */
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email: { value: email }, password: { value: password } } = e.target;
-    const { login } = this.props;
-    login(email, password);
+    const { name: { value: name }, email: { value: email }, password: { value: password } } = e.target;
+    const { signup } = this.props;
+    signup(name, email, password);
   }
 
   render() {
@@ -24,15 +24,15 @@ class Login extends React.PureComponent {
     }
 
     return (
-      <FormAuth user={user} title="Login" type="login" submitCallback={this.handleSubmit} />
+      <FormAuth user={user} title="Signup" type="registration" submitCallback={this.handleSubmit} />
     );
   }
 }
 
-Login.propTypes = {
+Registration.propTypes = {
   user: PropTypes.shape({}).isRequired,
-  login: PropTypes.func.isRequired,
+  signup: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ user: state.user });
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { signup })(Registration);

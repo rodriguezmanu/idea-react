@@ -17,14 +17,15 @@ import { post, remove, get } from '../middleware/api';
 
 /**
  * Signup API handler
+ * @param {String} name
  * @param {String} email
  * @param {String} password
  */
-export const signup = ({ email, password }) => (dispatch) => {
+export const signup = ({ name, email, password }) => (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   post({
     url: API.SIGNUP,
-    body: { email, password },
+    body: { name, email, password },
     success: SIGNUP_SUCCESS,
     failure: SIGNUP_FAILURE,
     dispatch,

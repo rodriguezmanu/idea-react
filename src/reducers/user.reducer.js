@@ -1,4 +1,7 @@
 import {
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -11,6 +14,21 @@ import {
 
 const user = (state = { isFetching: false }, action) => {
   switch (action.type) {
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      };
     case LOGIN_REQUEST:
       return {
         ...state,
