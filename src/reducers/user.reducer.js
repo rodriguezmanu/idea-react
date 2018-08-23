@@ -45,7 +45,7 @@ const user = (state = { isFetching: false }, action) => {
     case LOGOUT_FAILURE:
       return {
         ...state,
-        isAuth: false,
+        isAuth: true,
         isFetching: false,
       };
 
